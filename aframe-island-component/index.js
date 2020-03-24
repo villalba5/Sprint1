@@ -1,8 +1,8 @@
-var searchright = true
-var searchbottom = true
-var searchleft = true
-var searchtop = true
-var found = false
+let searchright = true
+let searchbottom = true
+let searchleft = true
+let searchtop = true
+let found = false
 
 AFRAME.registerComponent('newisland', {
 	schema: {
@@ -25,9 +25,9 @@ AFRAME.registerComponent('newisland', {
 	 * Called once when component is attached. Generally for initial setup.
 	 */
 	init: function () {
-		var data = this.data;
-		var el = this.el;
-		var loader = new THREE.TextureLoader();
+		let data = this.data;
+		let el = this.el;
+		let loader = new THREE.TextureLoader();
 
 		switch (data.geometry) { //in this switch i detect the geometry that i want to representate
 			case 'box':
@@ -125,7 +125,7 @@ AFRAME.registerComponent('islands', {
 	init: function () {
 		//Load de json file
 		this.loader = new THREE.FileLoader();
-		var data = this.data;
+		let data = this.data;
 		if (data.databox) {
 			this.loader.load(data.databox, this.onDataLoaded.bind(this));
 		}
@@ -142,9 +142,9 @@ AFRAME.registerComponent('islands', {
 
 		// create box for each json objet
 
-		var data = this.data;
+		let data = this.data;
 		//console.log(data);
-		var elements = JSON.parse(file);
+		let elements = JSON.parse(file);
 		//console.log(elements);
 
 		switch (data.geometry) {
@@ -161,54 +161,53 @@ AFRAME.registerComponent('islands', {
 });
 
 
-AFRAME.registerComponent('concentricislands', {
+// AFRAME.registerComponent('concentricislands', {
 
-	schema: {
-		height: { type: 'number', default: 1 },
-		area: { type: 'number', default: 1 },
-		databox: { type: 'asset' },
-		geometry: { type: 'string', default: 'box' }
-	},
-	init: function () {
-		//Load de json file
-		this.loader = new THREE.FileLoader();
-		var data = this.data;
-		if (data.databox) {
-			this.loader.load(data.databox, this.onDataLoaded.bind(this));
-		}
-	},
-
-
-
-	onDataLoaded: function (file) { //in this function i parse the json file and get the objects that i will represent
-
-		var rightside = []
-		var leftside = []
-		var topside = []
-		var bottomside = []
+// 	schema: {
+// 		height: { type: 'number', default: 1 },
+// 		area: { type: 'number', default: 1 },
+// 		databox: { type: 'asset' },
+// 		geometry: { type: 'string', default: 'box' }
+// 	},
+// 	init: function () {
+// 		//Load de json file
+// 		this.loader = new THREE.FileLoader();
+// 		let data = this.data;
+// 		if (data.databox) {
+// 			this.loader.load(data.databox, this.onDataLoaded.bind(this));
+// 		}
+// 	},
 
 
-		console.log('entrando onDataLoaded');
 
-		// create box for each json objet
+// 	onDataLoaded: function (file) { //in this function i parse the json file and get the objects that i will represent
 
-		var data = this.data;
-		console.log(data);
-
-		//console.log(data);
-		var elements = JSON.parse(file);
-		console.log(elements);
-
-		var scene = document.querySelector('a-scene');
-
-		printFirst(elements[0], scene, rightside, leftside, topside, bottomside); //print the first element in the center of the scene
-
-		console.log(rightside);
+// 		let rightside = []
+// 		let leftside = []
+// 		let topside = []
+// 		let bottomside = []
 
 
-		printCircles(elements, scene, rightside, leftside, topside, bottomside);
-	},
-});
+// 		//console.log('entrando onDataLoaded');
+
+// 		// create box for each json objet
+
+// 		let data = this.data;
+// 		console.log(data);
+
+// 		//console.log(data);
+// 		let elements = JSON.parse(file);
+// 		//console.log(elements);
+
+// 		let scene = document.querySelector('a-scene');
+
+// 		printFirst(elements[0], scene, rightside, leftside, topside, bottomside); //print the first element in the center of the scene
+
+// 		//console.log(rightside);
+
+// 		printCircles(elements, scene, rightside, leftside, topside, bottomside);
+// 	},
+// });
 
 
 
@@ -218,7 +217,7 @@ AFRAME.registerComponent('concentricislands', {
 
 function colocar(scene, depth, height, width, x, z, color) {
 
-	var entity = document.createElement('a-entity');
+	let entity = document.createElement('a-entity');
 
 	entity.setAttribute('newisland', {
 		'color': color,
@@ -236,7 +235,7 @@ function colocar(scene, depth, height, width, x, z, color) {
 function printFirst(box, scene, rightside, leftside, topside, bottomside) {
 	console.log('printFirst');
 
-	var objPush = {
+	let objPush = {
 		posx: 0,
 		posz: Math.abs(box.width / 2),
 		len: box.width,
@@ -244,7 +243,7 @@ function printFirst(box, scene, rightside, leftside, topside, bottomside) {
 	rightside.push(1)
 	rightside.push(objPush)
 
-	var objPush = {
+	let objPush = {
 		posx: 0,
 		posz: -Math.abs(box.width / 2),
 		len: box.width,
@@ -252,7 +251,7 @@ function printFirst(box, scene, rightside, leftside, topside, bottomside) {
 	leftside.push(1)
 	leftside.push(objPush)
 
-	var objPush = {
+	let objPush = {
 		posx: Math.abs(box.width / 2),
 		posz: 0,
 		len: box.width,
@@ -260,7 +259,7 @@ function printFirst(box, scene, rightside, leftside, topside, bottomside) {
 	topside.push(1)
 	topside.push(objPush)
 
-	var objPush = {
+	let objPush = {
 		posx: -Math.abs(box.width / 2),
 		posz: 0,
 		len: box.width,
@@ -272,7 +271,7 @@ function printFirst(box, scene, rightside, leftside, topside, bottomside) {
 }
 
 function printCircles(boxes, scene, topside, bottomside, rightside, leftside) {
-	var e2 = {
+	let e2 = {
 		x: 0,
 		z: 0,
 		next: 0
@@ -288,7 +287,7 @@ function printCircles(boxes, scene, topside, bottomside, rightside, leftside) {
 			e2.z = rightside[0].width / 2 + box.width
 			colocar(scene, box.depth, box.height, box.width, posx, posz, 'green')
 			rightside.splice(rightside[0], 1)
-			var objPush = {
+			let objPush = {
 				posx: posx,
 				posz: posz,
 				len: box.width,
@@ -326,249 +325,227 @@ function printBoxes(boxes, positioning, num) {
 	}
 }
 
-function printCylinders(cylinders, positioning) {
-	console.log(cylinders, positioning);
-	switch (positioning) {
-		case 'random':
-			//console.log('es raaaandom');
-			this.randomPositionsCylinders(cylinders);
-			break;
-		case 'four':
-			//console.log('es four');
-			this.fourincircleCylinders(cylinders);
-			break;
+// function printCylinders(cylinders, positioning) {
+// 	console.log(cylinders, positioning);
+// 	switch (positioning) {
+// 		case 'random':
+// 			//console.log('es raaaandom');
+// 			this.randomPositionsCylinders(cylinders);
+// 			break;
+// 		case 'four':
+// 			//console.log('es four');
+// 			this.fourincircleCylinders(cylinders);
+// 			break;
 
-		default:
-			break;
-	}
-}
+// 		default:
+// 			break;
+// 	}
+// }
 
-function randomPositionsCylinders(cylinders) {
+// function randomPositionsCylinders(cylinders) {
 
-	var scene = document.querySelector('a-scene');
+// 	let scene = document.querySelector('a-scene');
 
-	cylinders.forEach(function (cylinder) {
+// 	cylinders.forEach(function (cylinder) {
 
-		var posx = Math.floor(Math.random() * 11) * Math.pow(-1, Math.floor(Math.random() * 2))
-		var posz = Math.floor(Math.random() * 11) * Math.pow(-1, Math.floor(Math.random() * 2))
+// 		let posx = Math.floor(Math.random() * 11) * Math.pow(-1, Math.floor(Math.random() * 2))
+// 		let posz = Math.floor(Math.random() * 11) * Math.pow(-1, Math.floor(Math.random() * 2))
 
-		//console.log('<<<<<<<<< pintando nuevo cylinder >>>>>>>>>>');
-		//console.log(cylinder);
+// 		//console.log('<<<<<<<<< pintando nuevo cylinder >>>>>>>>>>');
+// 		//console.log(cylinder);
 
-		var entity = document.createElement('a-entity');
+// 		let entity = document.createElement('a-entity');
 
-		entity.setAttribute('newisland', {
-			'color': 'blue',
-			'depth': cylinder.depth,
-			'height': cylinder.height,
-			'width': cylinder.width,
-			'posx': posx,
-			'posz': posz,
-			'geometry': 'cylinder'
-		});
-		scene.appendChild(entity);
-	});
-}
+// 		entity.setAttribute('newisland', {
+// 			'color': 'blue',
+// 			'depth': cylinder.depth,
+// 			'height': cylinder.height,
+// 			'width': cylinder.width,
+// 			'posx': posx,
+// 			'posz': posz,
+// 			'geometry': 'cylinder'
+// 		});
+// 		scene.appendChild(entity);
+// 	});
+// }
 
 
-function BoxesFourInCircle(boxes) {
-	//in this function i'm going to place the first box in the center and the next in concentric circles, 4 for circle
+// function BoxesFourInCircle(boxes) {
+// 	//in this function i'm going to place the first box in the center and the next in concentric circles, 4 for circle
 
-	var scene = document.querySelector('a-scene');
-	const margin = 0.1
+// 	let scene = document.querySelector('a-scene');
+// 	const margin = 0.1
 
-	for (let index = 0; index < boxes.length; index++) {
-		const box = boxes[index];
-		numcircles = Math.ceil(boxes.length / 4)
-		//console.log('Numero de boxes : ' + boxes.length + ' Numero de circulos : ' + numcircles);
+// 	for (let index = 0; index < boxes.length; index++) {
+// 		const box = boxes[index];
+// 		numcircles = Math.ceil(boxes.length / 4)
+// 		//console.log('Numero de boxes : ' + boxes.length + ' Numero de circulos : ' + numcircles);
 
-		switch (index) { //the first box in the middle
-			case 0:
-				posx = 0
-				posz = 0
-				break;
-			case 1:
-				posx = 0
-				posz = boxes[0].depth / 2 + margin + boxes[index].depth / 2
-				break
-			case 2:
-				posz = 0
-				posx = -(boxes[0].width / 2) - margin - boxes[index].width / 2
-				break
-			case 3:
-				posx = 0
-				posz = -(boxes[0].depth / 2) - margin - boxes[index].depth / 2
-				break
-			case 4:
-				posz = 0
-				posx = (boxes[0].width / 2) + margin + boxes[index].width / 2
-				break
-			default:
-				console.log('error en el switch de los index four in circle');
-				break;
-		}
-		var entity = document.createElement('a-entity');
+// 		switch (index) { //the first box in the middle
+// 			case 0:
+// 				posx = 0
+// 				posz = 0
+// 				break;
+// 			case 1:
+// 				posx = 0
+// 				posz = boxes[0].depth / 2 + margin + boxes[index].depth / 2
+// 				break
+// 			case 2:
+// 				posz = 0
+// 				posx = -(boxes[0].width / 2) - margin - boxes[index].width / 2
+// 				break
+// 			case 3:
+// 				posx = 0
+// 				posz = -(boxes[0].depth / 2) - margin - boxes[index].depth / 2
+// 				break
+// 			case 4:
+// 				posz = 0
+// 				posx = (boxes[0].width / 2) + margin + boxes[index].width / 2
+// 				break
+// 			default:
+// 				console.log('error en el switch de los index four in circle');
+// 				break;
+// 		}
+// 		let entity = document.createElement('a-entity');
 
-		entity.emit('physicscollided', false);
+// 		entity.emit('physicscollided', false);
 
-		entity.setAttribute('newisland', {
-			'depth': box.depth,
-			'height': box.height,
-			'width': box.width,
-			'posx': posx,
-			'posz': posz
-		});
-		scene.appendChild(entity);
-	}
+// 		entity.setAttribute('newisland', {
+// 			'depth': box.depth,
+// 			'height': box.height,
+// 			'width': box.width,
+// 			'posx': posx,
+// 			'posz': posz
+// 		});
+// 		scene.appendChild(entity);
+// 	}
 
-	entity.addEventListener('physicscollided', function (event) {
-		console.log('Entity collided with', event.detail.collidingEntity);
-		//Ahora deberemos manejar la posición para que no choque con ninguno
-	});
-}
+// 	entity.addEventListener('physicscollided', function (event) {
+// 		console.log('Entity collided with', event.detail.collidingEntity);
+// 		//Ahora deberemos manejar la posición para que no choque con ninguno
+// 	});
+// }
 
-function BoxesRandomPositions(boxes) {
+// function BoxesRandomPositions(boxes) {
 
-	var scene = document.querySelector('a-scene');
+// 	let scene = document.querySelector('a-scene');
 
-	boxes.forEach(function (box) {
+// 	boxes.forEach(function (box) {
 
-		var posx = Math.floor(Math.random() * 11) * Math.pow(-1, Math.floor(Math.random() * 2))
-		var posz = Math.floor(Math.random() * 11) * Math.pow(-1, Math.floor(Math.random() * 2))
+// 		let posx = Math.floor(Math.random() * 11) * Math.pow(-1, Math.floor(Math.random() * 2))
+// 		let posz = Math.floor(Math.random() * 11) * Math.pow(-1, Math.floor(Math.random() * 2))
 
-		//console.log('<<<<<<<<< pintando nuevo box >>>>>>>>>>');
-		//console.log(box);
+// 		//console.log('<<<<<<<<< pintando nuevo box >>>>>>>>>>');
+// 		//console.log(box);
 
-		var entity = document.createElement('a-entity');
+// 		let entity = document.createElement('a-entity');
 
-		entity.setAttribute('newisland', {
-			'color': 'blue',
-			'depth': box.depth,
-			'height': box.height,
-			'width': box.width,
-			'posx': posx,
-			'posz': posz
-		});
-		scene.appendChild(entity);
-	});
+// 		entity.setAttribute('newisland', {
+// 			'color': 'blue',
+// 			'depth': box.depth,
+// 			'height': box.height,
+// 			'width': box.width,
+// 			'posx': posx,
+// 			'posz': posz
+// 		});
+// 		scene.appendChild(entity);
+// 	});
 
-}
+// }
 
-function fourincircleCylinders(cylinders) {
-	//console.log(cylinders);
-	var scene = document.querySelector('a-scene');
-	const margin = 0.1
-	numcircles = Math.ceil(cylinders.length / 4)
-	//console.log('Numero de cylinders : ' + cylinders.length + ' Numero de circulos : ' + numcircles);
+// function fourincircleCylinders(cylinders) {
+// 	//console.log(cylinders);
+// 	let scene = document.querySelector('a-scene');
+// 	const margin = 0.1
+// 	numcircles = Math.ceil(cylinders.length / 4)
+// 	//console.log('Numero de cylinders : ' + cylinders.length + ' Numero de circulos : ' + numcircles);
 
-	radius = []
+// 	radius = []
 
-	for (let index = 0; index < cylinders.length; index++) {
-		const cylinder = cylinders[index];
-		radius.push(Math.sqrt((cylinders[index].width * cylinders[index].height) / 3.1415)); //Array os radius
+// 	for (let index = 0; index < cylinders.length; index++) {
+// 		const cylinder = cylinders[index];
+// 		radius.push(Math.sqrt((cylinders[index].width * cylinders[index].height) / 3.1415)); //Array os radius
 
-		switch (index) { //the first cylinder in the middle
-			case 0:
-				posx = 0
-				posz = 0
-				break;
-			case 1:
-				posx = 0
-				posz = radius[0] + margin + radius[index]
-				break
-			case 2:
-				posz = 0
-				posx = -(radius[0]) - margin - radius[index]
-				break
-			case 3:
-				posx = 0
-				posz = -(radius[0]) - margin - radius[index]
-				break
-			case 4:
-				posz = 0
-				posx = radius[0] + margin + radius[index]
-				break
-			default:
-				console.log('error en el switch de los index four in circle');
-				break;
-		}
-		var entity = document.createElement('a-entity');
+// 		switch (index) { //the first cylinder in the middle
+// 			case 0:
+// 				posx = 0
+// 				posz = 0
+// 				break;
+// 			case 1:
+// 				posx = 0
+// 				posz = radius[0] + margin + radius[index]
+// 				break
+// 			case 2:
+// 				posz = 0
+// 				posx = -(radius[0]) - margin - radius[index]
+// 				break
+// 			case 3:
+// 				posx = 0
+// 				posz = -(radius[0]) - margin - radius[index]
+// 				break
+// 			case 4:
+// 				posz = 0
+// 				posx = radius[0] + margin + radius[index]
+// 				break
+// 			default:
+// 				console.log('error en el switch de los index four in circle');
+// 				break;
+// 		}
+// 		let entity = document.createElement('a-entity');
 
-		entity.setAttribute('newisland', {
-			'depth': cylinder.depth,
-			'height': cylinder.height,
-			'width': cylinder.width,
-			'posx': posx,
-			'posz': posz,
-			'geometry': 'cylinder'
-		});
-		scene.appendChild(entity);
-	}
-}
+// 		entity.setAttribute('newisland', {
+// 			'depth': cylinder.depth,
+// 			'height': cylinder.height,
+// 			'width': cylinder.width,
+// 			'posx': posx,
+// 			'posz': posz,
+// 			'geometry': 'cylinder'
+// 		});
+// 		scene.appendChild(entity);
+// 	}
+// }
 
-function BoxesNear(parboxesams) {
-	//Algoritm to push nearest of the center
-	//console.log('BoxesNear');
 
-}
 
 function BoxesConcentric(boxes, num) {
 	//console.log('boxes concentric');
 
-	var next = 0;
+	let next = 0;
 
-	var scene = document.querySelector('a-scene');
-	var lado = boxes[0].width;
+	let scene = document.querySelector('a-scene');
+	let lado = boxes[0].width;
 
 	//think if i need the corners ???
 
-	var e1 = { //upper right
+	let e1 = { //upper right
 		posx: 0,
 		posz: 0
 	}
-	var e1posz = 0
-	var e2 = { //down right
+	let e1posz = 0
+	let e2 = { //down right
 		posx: 0,
 		posz: 0
 	}
-	var e2posx = 0
-	var e3 = { //down left
+	let e2posx = 0
+	let e3 = { //down left
 		posx: 0,
 		posz: 0
 	}
-	var e3posz = 0
-	var e4 = { // upper left
+	let e3posz = 0
+	let e4 = { // upper left
 		posx: 0,
 		posz: 0
 	}
-	var e4posx = 0
+	let e4posx = 0
 
 	//i have one list for each side, one for the rigth, other for the left, other for the top and other for the bottom side.
 	//in each array, i save an object that have the position x and y and the length of the segment
 
-	var right = []
-	var left = []
-	var top = []
-	var bottom = []
-	var firstcircle = true
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	let right = []
+	let left = []
+	let top = []
+	let bottom = []
+	let firstcircle = true
 
 
 	//i will go for each elements in the boxes array, placing the elements in concentric circles
@@ -748,23 +725,10 @@ function BoxesConcentric(boxes, num) {
 					next++
 
 				}
-
-
 			} else {
-
-
-
-
-
-
-
-
-
-
 				//i'm not in the first circle
 				console.log('circunferencias concéntricas');
 				console.log(next, 'next');
-				
 
 				if (searchright) {
 					console.log('buscando en right');
@@ -783,11 +747,10 @@ function BoxesConcentric(boxes, num) {
 
 						console.log(right[next]);
 						
-						var xaux = bottom[0].x
-						var zaux = bottom[0].z
-						var lenaux = bottom[0].len
+						let xaux = bottom[0].x
+						let zaux = bottom[0].z
+						let lenaux = bottom[0].len
 												
-
 						//update the object
 						right[next].x = posx
 						right[next].z = posz
@@ -873,38 +836,27 @@ function BoxesConcentric(boxes, num) {
 							//dont fits
 							console.log('else :) :) ');
 							console.log(Math.abs((Math.abs(right[next-1].x) - Math.abs(right[next-1].len/2)) - (Math.abs(right[next].x) - Math.abs(right[next].len/2))));
-
-							
 						}
 					}
-
 				} else if (searchbottom) {
 					console.log('buscando en bottom');
-
 					if (bottom[next + 1] != undefined && bottom[next].len >= box.width) { //fits
 						console.log('fits');
-
 						posx = bottom[next].x - bottom[next].len / 2 - box.width / 2
 						posz = bottom[next-1].z - bottom[next-1].len / 2 - box.width / 2
-
-						//console.log(bottom[next]);
-						
+						//console.log(bottom[next]);	
 						//update the object
 						bottom[next].x = posx
 						bottom[next].z = posz
-						bottom[next].len = box.width
-						
-						//console.log(bottom[next]);
-						
+						bottom[next].len = box.width						
+						//console.log(bottom[next]);	
 					} else {
 						//dont fits
 						console.log('paso por el else, dont fits');
 						if (bottom[next + 1]==undefined) {
 							console.log('el next es undefined');
 							//console.log(next);
-
-							//console.log('next.len',bottom[next-1].len/2);
-							
+							//console.log('next.len',bottom[next-1].len/2);	
 							posx = bottom[next-1].x + bottom[next-1].len/2 - box.width / 2
 							posz = bottom[next-1].z - bottom[next-1].len/2 - box.width / 2
 							console.log(posx, 'x',posz,'z');
@@ -917,17 +869,13 @@ function BoxesConcentric(boxes, num) {
 
 							if ((posz - box.width/2) < (left[0].z - left[0].len/2)) {
 								console.log('me paso de la esquina');
-								
 								left.unshift(objpush)
-
 								searchbottom = false
 								next = 0
 							}else{
 								console.log('elimino el ultimo y añado el mio');
-								
 								bottom.splice(bottom.length-1,1)
 							}
-							
 							bottom.push(objpush)
 						}else{
 							//dont fits
@@ -939,21 +887,16 @@ function BoxesConcentric(boxes, num) {
 								posz = bottom[next-1].z-bottom[next-1].len/2-box.width/2
 
 								console.log('x : ',posx);
-								
-
+							
 								bottom[next].x = posx
 								bottom[next].z = posz
 								bottom[next].len = box.width
-								
 								
 							}else{
 								console.log('dont fits');
 								console.log(((bottom[next-1].z+bottom[next-1].len/2) - box.width));
 								console.log((bottom[next].z+bottom[next].len/2));
-								
-
-							}
-							
+							}					
 						}
 					}
 					next ++
@@ -997,7 +940,6 @@ function BoxesConcentric(boxes, num) {
 
 							console.log(next,'next');
 							
-
 							posx = left[next-1].x+left[next-1].len/2+box.width/2
 							posz = left[next-1].z+left[next-1].len/2-box.width/2
 
@@ -1021,13 +963,10 @@ function BoxesConcentric(boxes, num) {
 
 								posx = left[next - 1].x + left[next -1].len/2 + box.width/2
 								posz = left[next].z-left[next].len/2-box.width/2
-
 								
 							}else{
 								console.log(left[next].x);
 								console.log(left[next-1].x+left[next-1].len/2);
-								
-								
 								console.log(Math.abs(left[next].x-(left[next-1].x+left[next-1].len/2)));
 								
 								posx = left[next - 1].x + left[next - 1].len/2 + box.width/2
@@ -1037,11 +976,9 @@ function BoxesConcentric(boxes, num) {
 							left[next].x = posx
 							left[next].z = posz
 							left[next].len = box.width
-							
 						}
 					}
 					next++
-					
 
 				} else if (searchtop) {
 						xx = right[0].x
@@ -1058,20 +995,12 @@ function BoxesConcentric(boxes, num) {
 
 						console.log('x :',xx, 'z :',zz,'len :',leen);
 
-						
-						
-
 						//replace the old object with the new one
 						top[next].x = posx
 						top[next].z = posz
 						top[next].len = box.width
 
-						console.log('x :',xx, 'z :',zz,'len :',leen);
-
-
-
-						
-						
+						console.log('x :',xx, 'z :',zz,'len :',leen);				
 
 						right[0].x=xx
 						right[0].z=zz
@@ -1136,7 +1065,7 @@ function BoxesConcentric(boxes, num) {
 
 		console.log(posx, posz, 'i : ', i);
 
-		var entity = document.createElement('a-entity');
+		let entity = document.createElement('a-entity');
 		entity.setAttribute('newisland', {
 			'depth': box.depth,
 			'height': box.height,
