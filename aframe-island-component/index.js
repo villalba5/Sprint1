@@ -143,6 +143,7 @@ AFRAME.registerComponent('islands', {
 		// create box for each json objet
 
 		let data = this.data;
+		var elem = this.el
 		//console.log(data);
 		let elements = JSON.parse(file);
 		//console.log(elements);
@@ -154,7 +155,7 @@ AFRAME.registerComponent('islands', {
 				break;
 			default:
 				//console.log('no es un cylinder');
-				printBoxes(elements, data.positioning, data.num)
+				printBoxes(elements, data.positioning, data.num, elem)
 				break;
 		}
 	},
@@ -243,29 +244,29 @@ function printFirst(box, scene, rightside, leftside, topside, bottomside) {
 	rightside.push(1)
 	rightside.push(objPush)
 
-	let objPush = {
+	let objPush2 = {
 		posx: 0,
 		posz: -Math.abs(box.width / 2),
 		len: box.width,
 	}
 	leftside.push(1)
-	leftside.push(objPush)
+	leftside.push(objPush2)
 
-	let objPush = {
+	let objPush3 = {
 		posx: Math.abs(box.width / 2),
 		posz: 0,
 		len: box.width,
 	}
 	topside.push(1)
-	topside.push(objPush)
+	topside.push(objPush3)
 
-	let objPush = {
+	let objPush4 = {
 		posx: -Math.abs(box.width / 2),
 		posz: 0,
 		len: box.width,
 	}
 	bottomside.push(1)
-	bottomside.push(objPush)
+	bottomside.push(objPush4)
 
 	colocar(scene, box.depth, box.height, box.width, 0, 0, 'red')
 }
@@ -302,7 +303,7 @@ function printCircles(boxes, scene, topside, bottomside, rightside, leftside) {
 	}
 }
 
-function printBoxes(boxes, positioning, num) {
+function printBoxes(boxes, positioning, num, elem) {
 	console.log(boxes, positioning);
 	switch (positioning) {
 		case 'random':
@@ -319,7 +320,7 @@ function printBoxes(boxes, positioning, num) {
 			break;
 		case 'much':
 			//console.log('es much');
-			BoxesConcentric(boxes, num);
+			BoxesConcentric(boxes, num,elem);
 		default:
 			break;
 	}
@@ -507,7 +508,7 @@ function printBoxes(boxes, positioning, num) {
 
 
 
-function BoxesConcentric(boxes, num) {
+function BoxesConcentric(boxes, num, elem) {
 	//console.log('boxes concentric');
 
 	let next = 0;
@@ -1074,7 +1075,7 @@ function BoxesConcentric(boxes, num) {
 			'posz': posz,
 			'color': color,
 		});
-		scene.appendChild(entity);
+		elem.appendChild(entity);
 		console.log('top');
 		console.log(top);
 		console.log('right');
