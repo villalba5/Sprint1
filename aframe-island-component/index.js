@@ -281,7 +281,8 @@ function BoxesConcentric(boxes, num, elem) {
 	for (let i = 0; i < num ; i++) {
 
 		console.log('----------------------------------------------------');
-		
+		console.log( 'i : ', i);
+
 		found = false
 		const box = boxes[i];
 		color = '#00ffff' //light blue
@@ -723,32 +724,41 @@ function BoxesConcentric(boxes, num, elem) {
 						console.log('x :',xx, 'z :',zz,'len :',leen);
 					console.log('searchtoppp ->>>>>>>>>>');
 					if (top[next] != undefined && Math.abs(((top[next-1].z) + (top[next-1].len/2)) - ((top[next].z) + (top[next].len/2))) >= box.width) { //fits
+						console.log('fits in the next position');
 						
 						posx = top[next].x + top[next].len/2 + box.width/2
 						posz = top[next-1].z + top[next-1].len/2 + box.width/2
 
-						console.log('old : ', top[next]);
+						console.log('position :', posx ,',',posz);
+						console.log('next :',next);
 
+						if (next == top.length-1) {
+							console.log('the last element of top');
+							posx = top[next-1].x - top[next-1].len/2 + box.width/2
+							
+							top.pop()
+							objpush = {
+								x: posx,
+								z: posz,
+								len: box.width
+							}
+							top.push(objpush)
+							
+						}else{
 
-						//replace the old object with the new one
-						top[next].x = posx
-						top[next].z = posz
-						top[next].len = box.width
+							//replace the old object with the new one
+							top[next].x = posx
+							top[next].z = posz
+							top[next].len = box.width
 
-						console.log('x :',xx, 'z :',zz,'len :',leen);				
-
-						right[0].x=xx
-						right[0].z=zz
-						right[0].len=leen
-
-						console.log('new : ',top[next].x);
+						}
 
 					}else{
 
 						if (top[next + 1] == undefined) { //is the last element
 							console.log('the last element');
 
-							posx = top[next-1].x-top[next-1].len/2+box.width/2
+							posx = top[next-1].x+top[next-1].len/2-box.width/2
 							posz = top[next-1].z + top[next-1].len/2 + box.width/2
 
 							objpush = {
