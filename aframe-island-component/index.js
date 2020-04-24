@@ -34,23 +34,33 @@ AFRAME.registerComponent('newisland', {
 				//console.log('es un boxx');
 
 				this.geometry = new THREE.BoxBufferGeometry(data.width, data.height, data.depth);
+
+				if (data.posx == 0 && data.posz == 0) {
+					this.material = new THREE.MeshStandardMaterial({ color: data.color });
+				} else {
+					this.material = new THREE.MeshStandardMaterial({ map: loader.load("../../../assets/imgs/bordecubos.png") });
+				}
 				break;
 			case 'cylinder':
-				//console.log('es un cyylinder');
-				radius = Math.sqrt((data.width * data.height) / 3.1415);
-				//console.log('radius : ' + radius);
+				console.log('es un cyylinder');
+				//radius = Math.sqrt((data.width * data.height) / 3.1415); //The same base area
+				
+				radius = data.width/2//aprox the same radius
+				console.log('radius : ' + radius);
 
-				this.geometry = new THREE.CylinderBufferGeometry(radius, radius, data.height);
+				this.geometry = new THREE.CylinderBufferGeometry(radius, radius, data.height,50);
+
+				if (data.posx == 0 && data.posz == 0) {
+					this.material = new THREE.MeshStandardMaterial({ color: data.color });
+				} else {
+					this.material = new THREE.MeshStandardMaterial({ map: loader.load("../../../assets/imgs/whiteblackcircle.png") });
+				}
 				break;
 			default:
 				break;
 		}
 
-		if (data.posx == 0 && data.posz == 0) {
-			this.material = new THREE.MeshStandardMaterial({ color: data.color });
-		} else {
-			this.material = new THREE.MeshStandardMaterial({ map: loader.load("../../../assets/imgs/bordecubos.png") });
-		}
+		
 
 		this.mesh = new THREE.Mesh(this.geometry, this.material);
 		this.mesh.position.set(data.posx, data.height / 2, data.posz);
@@ -110,16 +120,18 @@ AFRAME.registerComponent('islands', {
 		let elements = JSON.parse(file);
 		//console.log(elements);
 
-		switch (data.geometry) {
-			case "cylinder":
-				//console.log('es un cylinder!!');
-				printCylinders(elements, data.positioning)
-				break;
-			default:
-				//console.log('no es un cylinder');
-				printBoxes(elements, data.positioning, data.num, elem)
-				break;
-		}
+		printBoxes(elements, data.positioning, data.num, elem,data.geometry)
+
+		// switch (data.geometry) {
+		// 	case "cylinder":
+		// 		//console.log('es un cylinder!!');
+		// 		printBoxes(elements, data.positioning)
+		// 		break;
+		// 	default:
+		// 		//console.log('no es un cylinder');
+		// 		printBoxes(elements, data.positioning, data.num, elem)
+		// 		break;
+		// }
 	},
 });
 
@@ -212,7 +224,7 @@ function printCircles(boxes, scene, topside, bottomside, rightside, leftside) {
 	}
 }
 
-function printBoxes(boxes, positioning, num, elem) {
+function printBoxes(boxes, positioning, num, elem,geometry) {
 	console.log(boxes, positioning);
 	switch (positioning) {
 		case 'random':
@@ -229,14 +241,15 @@ function printBoxes(boxes, positioning, num, elem) {
 			break;
 		case 'much':
 			//console.log('es much');
-			BoxesConcentric(boxes, num,elem);
+			BoxesConcentric(boxes, num,elem,geometry);
 		default:
 			break;
 	}
 }
 
 
-function BoxesConcentric(boxes, num, elem) {
+
+function BoxesConcentric(boxes, num, elem, geometry) {
 	//console.log('boxes concentric');
 
 	let next = 0;
@@ -876,6 +889,7 @@ function BoxesConcentric(boxes, num, elem) {
 			'posx': posx,
 			'posz': posz,
 			'color': color,
+			'geometry':geometry,
 		});
 		elem.appendChild(entity);
 		console.log('top');
